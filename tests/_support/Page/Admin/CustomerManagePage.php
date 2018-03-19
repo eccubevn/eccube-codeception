@@ -45,7 +45,6 @@ class CustomerManagePage extends AbstractAdminPageStyleGuide
     public function 一覧_削除($rowNum)
     {
         $this->一覧_メニュー($rowNum);
-        $this->tester->click("#search_form > div.row > div > div > div.box-body > div.table_list > div > table > tbody > tr:nth-child(${rowNum}) > td.icon_edit > div > ul > li:nth-child(2) > a");
         return $this;
     }
 
@@ -58,7 +57,7 @@ class CustomerManagePage extends AbstractAdminPageStyleGuide
 
     private function 一覧_メニュー($rowNum)
     {
-        $this->tester->click("#search_form > div.row > div > div > div.box-body > div.table_list > div > table > tbody > tr:nth-child(${rowNum}) > td.icon_edit > div > a");
+        $this->tester->click(".c-primaryCol .table tr:nth-child(${rowNum}) > td.align-middle div.justify-content-end a.btn-ec-actionIcon");
         return $this;
     }
 
@@ -75,6 +74,14 @@ class CustomerManagePage extends AbstractAdminPageStyleGuide
 
     public function 一覧_会員ID($rowNum)
     {
-        return $this->tester->grabTextFrom("#search_form > div.row > div > div > div.box-body > div.table_list > div > table > tbody > tr:nth-child($rowNum) > td.member_id");
+        return $this->tester->grabTextFrom(".c-primaryCol .table tr:nth-child(${rowNum}) > td:first-child");
+    }
+
+    public function acceptModal($rowNum){
+        $this->tester->click(".c-primaryCol .table tr:nth-child(${rowNum}) > td.align-middle .modal-content .modal-footer a");
+    }
+
+    public function cancelModal($rowNum){
+        $this->tester->click(".c-primaryCol .table tr:nth-child(${rowNum}) > td.align-middle .modal-content .modal-footer button");
     }
 }

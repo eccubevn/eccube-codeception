@@ -150,7 +150,6 @@ class EA05CustomerCest
 
     public function customer_会員削除(\AcceptanceTester $I)
     {
-        $I->getScenario()->incomplete('未実装：会員削除は未実装');
         $I->wantTo('EA0501-UC03-T01 会員削除');
 
         $createCustomer = Fixtures::get('createCustomer');
@@ -160,14 +159,13 @@ class EA05CustomerCest
             ->検索($customer->getEmail());
 
         $CustomerManagePage->一覧_削除(1);
-        $I->acceptPopup();
+        $CustomerManagePage->acceptModal(1);
 
         $I->see('検索条件に合致するデータが見つかりませんでした', CustomerManagePage::$検索結果_結果なしメッセージ);
     }
 
     public function customer_会員削除キャンセル(\AcceptanceTester $I)
     {
-        $I->getScenario()->incomplete('未実装：会員削除は未実装');
         $I->wantTo('EA0501-UC03-T02 会員削除キャンセル');
 
         $createCustomer = Fixtures::get('createCustomer');
@@ -178,7 +176,7 @@ class EA05CustomerCest
 
         $CustomerIdForNotDel = $CustomerManagePage->一覧_会員ID(1);
         $CustomerManagePage->一覧_削除(1);
-        $I->cancelPopup();
+        $CustomerManagePage->cancelModal(1);
 
         $I->assertEquals($CustomerIdForNotDel, $CustomerManagePage->一覧_会員ID(1));
     }
