@@ -142,6 +142,9 @@ class EA04OrderCest
         $TargetOrders = array_filter($findOrders(), function ($Order) {
             return $Order->getOrderStatus()->getId() != OrderStatus::PROCESSING;
         });
+        // Remove shipping to delete order
+        $deleteShipping = Fixtures::get('deleteShipping');
+        $TargetOrders = $deleteShipping($TargetOrders);
 
         $OrderListPage = OrderManagePage::go($I)->検索();
         $I->see('検索結果：'.count($TargetOrders).'件が該当しました', OrderManagePage::$検索結果_メッセージ);

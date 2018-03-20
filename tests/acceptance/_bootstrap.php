@@ -228,6 +228,21 @@ $createOrders = function ($Customer, $numberOfOrders = 5) use ($container, $enti
 /** 受注を生成するクロージャ. */
 Fixtures::add('createOrders', $createOrders);
 
+$deleteShipping = function ($Orders) use ($entityManager) {
+    // remove shipping
+    foreach ($Orders as $Order) {
+        $Items = $Order->getItems();
+        foreach ($Items as $Item) {
+            $Item->setShipping(null);
+            $entityManager->persist($Item);
+        }
+    }
+    $entityManager->flush();
+    return $Orders;
+};
+
+Fixtures::add('deleteShipping', $deleteShipping);
+
 $findPlugins = function () use ($entityManager) {
     return $entityManager->getRepository('Eccube\Entity\Plugin')->findAll();
 };
