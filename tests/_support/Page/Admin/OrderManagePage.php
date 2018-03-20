@@ -87,4 +87,16 @@ class OrderManagePage extends AbstractAdminPageStyleGuide
     {
         return $this->tester->grabTextFrom("#search_result > tbody > tr:nth-child($rowNum) a.action-edit");
     }
+
+    public function 一覧_acceptDeleteModal($rowNum)
+    {
+        $this->tester->click("#search_result > tbody > tr:nth-child(${rowNum}) a.btn-ec-delete");
+        return $this;
+    }
+
+    public function 一覧_cancelDeleteModal($rowNum)
+    {
+        $this->tester->click("#search_result > tbody > tr:nth-child(${rowNum}) div.modal button.btn-ec-sub");
+        return $this;
+    }
 }

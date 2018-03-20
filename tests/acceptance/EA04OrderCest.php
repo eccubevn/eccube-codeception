@@ -149,17 +149,15 @@ class EA04OrderCest
         // 削除
         $OrderNumForDel = $OrderListPage->一覧_注文番号(1);
         $OrderListPage->一覧_削除(1);
-        $I->acceptPopup();
+        $OrderListPage->一覧_acceptDeleteModal(1);
 
-        $I->getScenario()->incomplete('未実装：受注マスターでの受注削除が未実装');
-
-        $I->see('受注情報を削除しました', ['css' => '#main > div > div:nth-child(1) > div']);
+        $I->see('受注情報を削除しました', ['css' => '#page_admin_order_page > div.c-container > div.c-contentsArea > div.alert']);
         $I->assertNotEquals($OrderNumForDel, $OrderListPage->一覧_注文番号(1));
 
         // 削除キャンセル
         $OrderNumForDontDel = $OrderListPage->一覧_注文番号(1);
         $OrderListPage->一覧_削除(1);
-        $I->cancelPopup();
+        $OrderListPage->一覧_cancelDeleteModal(1);
 
         $I->assertEquals($OrderNumForDontDel, $OrderListPage->一覧_注文番号(1));
     }
