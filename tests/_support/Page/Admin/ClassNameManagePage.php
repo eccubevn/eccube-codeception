@@ -44,21 +44,41 @@ class ClassNameManagePage extends AbstractAdminPageStyleGuide
     public function 一覧_名称($rowNum)
     {
         $rowNum += 1;
-        return "ul.tableish > li:nth-child(${rowNum}) > div > div:nth-child(2) a:nth-child(1)";
+        return "ul.tableish > li:nth-child(${rowNum}) div > div:nth-child(2) a:nth-child(1)";
     }
 
     public function 一覧_分類登録($rowNum)
     {
         $rowNum += 1;
-        $this->tester->click("ul.tableish > li:nth-child(${rowNum}) > div > div:nth-child(2) a:nth-child(1)");
+        $this->tester->click("ul.tableish > li:nth-child(${rowNum}) div > div:nth-child(2) a:nth-child(1)");
         return $this;
     }
 
     public function 一覧_編集($rowNum)
     {
-        $this->一覧_オプション($rowNum);
-        $this->tester->click("#main .container-fluid .box .box-body .item_box:nth-child(${rowNum}) .icon_edit .dropdown ul li:nth-child(2) a");
+        $rowNum += 1;
+        $this->tester->click("ul li:nth-child(${rowNum}) div.action > a.edit-button");
         return $this;
+    }
+
+    public function 一覧_入力_クラス名($rowNum, $value)
+    {
+        $rowNum += 1;
+        $this->tester->fillField(['css' => "ul li:nth-child(${rowNum}) input[type=text]"], $value);
+        return $this;
+    }
+
+    public function 一覧_決定($rowNum)
+    {
+        $rowNum += 1;
+        $this->tester->click("ul li:nth-child(${rowNum}) div.edit > button.btn.btn-ec-conversion");
+        return;
+    }
+
+    public function 一覧_クラス名($rowNum)
+    {
+        $rowNum += 1;
+        return "ul li:nth-child(${rowNum}) div.row > div:nth-child(2) > div.list > a";
     }
 
     public function 一覧_削除($rowNum)
@@ -66,11 +86,6 @@ class ClassNameManagePage extends AbstractAdminPageStyleGuide
         $rowNum += 1;
         $this->tester->click("ul.list-group > li:nth-child(${rowNum}) a:nth-child(4)");
         return $this;
-    }
-
-    private function 一覧_オプション($rowNum)
-    {
-        $this->tester->click("#main .container-fluid .box .box-body .item_box:nth-child(${rowNum}) .icon_edit .dropdown a");
     }
 
     public function 一覧_上に($rowNum)

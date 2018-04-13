@@ -425,15 +425,11 @@ class EA03ProductCest
     {
         $I->wantTo('EA0303-UC02-T01 規格編集');
 
-        $I->getScenario()->skip('編集機能を実装するまでスキップ');
+        $ClassNamePage = ClassNameManagePage::go($I)->一覧_編集(1);
 
-        $ProductClassPage = ClassNameManagePage::go($I)->一覧_編集(1);
-
-        $value = $I->grabValueFrom(ClassNameManagePage::$管理名);
-        $I->assertEquals('test class1', $value);
-
-        $ProductClassPage->規格作成();
-
+        $ClassNamePage->一覧_入力_クラス名(1, 'test class 1')
+            ->一覧_決定(1);
+        $I->see('test class1', $ClassNamePage->一覧_クラス名(1));
         $I->see('規格を保存しました。', ClassNameManagePage::$登録完了メッセージ);
     }
 
