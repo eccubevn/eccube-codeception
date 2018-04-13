@@ -429,7 +429,7 @@ class EA03ProductCest
 
         $ClassNamePage->一覧_入力_クラス名(1, 'test class 1')
             ->一覧_決定(1);
-        $I->see('test class1', $ClassNamePage->一覧_クラス名(1));
+        $I->see('test class 1', $ClassNamePage->一覧_クラス名(1));
         $I->see('規格を保存しました。', ClassNameManagePage::$登録完了メッセージ);
     }
 
